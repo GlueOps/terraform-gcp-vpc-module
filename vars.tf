@@ -1,3 +1,5 @@
+variable "workspace" {}
+
 variable "region" {
   type        = string
   default     = ""
