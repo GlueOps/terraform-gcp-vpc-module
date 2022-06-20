@@ -1,6 +1,6 @@
 resource "google_compute_global_address" "gcp_managed_services" {
   project       = data.google_projects.env_project.projects[0].project_id
-  name          = "${var.workspace}-gcp-services-network"
+  name          = "${var.workspace}-${var.region}-gcp-services-network"
   purpose       = "VPC_PEERING"
   address_type  = "INTERNAL"
   address       = split("/", var.network_prefixes["gcp_private_connect"])[0]

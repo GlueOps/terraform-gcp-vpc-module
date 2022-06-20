@@ -1,6 +1,6 @@
 resource "google_compute_network" "vpc_network" {
   project                         = data.google_projects.env_project.projects[0].project_id
-  name                            = "${var.workspace}-network"
+  name                            = "${var.workspace}-vpc"
   auto_create_subnetworks         = false
   delete_default_routes_on_create = true
   routing_mode                    = "REGIONAL"

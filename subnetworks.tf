@@ -1,6 +1,6 @@
 resource "google_compute_subnetwork" "public-network" {
   project                  = data.google_projects.env_project.projects[0].project_id
-  name                     = "public-subnetwork"
+  name                     = "${var.workspace}-${var.region}-public-subnet"
   description              = "Public Subnetwork"
   ip_cidr_range            = var.network_prefixes["public_primary"]
   region                   = var.region
@@ -17,7 +17,7 @@ resource "google_compute_subnetwork" "public-network" {
 
 resource "google_compute_subnetwork" "private-network" {
   project                  = data.google_projects.env_project.projects[0].project_id
-  name                     = "private-subnetwork"
+  name                     = "${var.workspace}-${var.region}-private-subnet"
   description              = "Private Subnetwork"
   ip_cidr_range            = var.network_prefixes["private_primary"]
   region                   = var.region
@@ -25,12 +25,12 @@ resource "google_compute_subnetwork" "private-network" {
   private_ip_google_access = true
 
   secondary_ip_range {
-    range_name    = "${var.workspace}-kubernetes-services"
+    range_name    = "${var.workspace}-${var.region}-kubernetes-services"
     ip_cidr_range = var.network_prefixes["kubernetes_services"]
   }
 
   secondary_ip_range {
-    range_name    = "${var.workspace}-kubernetes-pods"
+    range_name    = "${var.workspace}-${var.region}-kubernetes-pods"
     ip_cidr_range = var.network_prefixes["kubernetes_pods"]
   }
 
