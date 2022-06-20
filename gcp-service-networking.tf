@@ -10,7 +10,6 @@ resource "google_compute_global_address" "gcp_managed_services" {
 
 
 resource "google_service_networking_connection" "private_connection" {
-  project                 = data.google_projects.env_project.projects[0].project_id
   network                 = google_compute_network.vpc_network.id
   service                 = "servicenetworking.googleapis.com"
   reserved_peering_ranges = [google_compute_global_address.gcp_managed_services.name]
