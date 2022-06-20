@@ -2,8 +2,8 @@ resource "google_compute_subnetwork" "public-network" {
   project                  = data.google_projects.env_project.projects[0].project_id
   name                     = "public-subnetwork"
   description              = "Public Subnetwork"
-  ip_cidr_range            = local.network_prefixes[var.workspace]["public_primary"]
-  region                   = local.region
+  ip_cidr_range            = var.network_prefixes["public_primary"]
+  region                   = var.region
   network                  = google_compute_network.vpc_network.id
   private_ip_google_access = true
 
@@ -20,7 +20,7 @@ resource "google_compute_subnetwork" "private-network" {
   name                     = "private-subnetwork"
   description              = "Private Subnetwork"
   ip_cidr_range            = var.network_prefixes["private_primary"]
-  region                   = local.region
+  region                   = var.region
   network                  = google_compute_network.vpc_network.id
   private_ip_google_access = true
 

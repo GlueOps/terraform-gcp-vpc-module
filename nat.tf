@@ -1,7 +1,7 @@
 resource "google_compute_router" "router" {
   project = data.google_projects.env_project.projects[0].project_id
-  name    = "${var.workspace}-router-${local.region}"
-  region  = local.region
+  name    = "${var.workspace}-router-${var.region}"
+  region  = var.region
   network = google_compute_network.vpc_network.id
 
   bgp {
@@ -11,7 +11,7 @@ resource "google_compute_router" "router" {
 
 resource "google_compute_router_nat" "nat" {
   project                            = data.google_projects.env_project.projects[0].project_id
-  name                               = "${var.workspace}-nat-${local.region}"
+  name                               = "${var.workspace}-nat-${var.region}"
   router                             = google_compute_router.router.name
   region                             = google_compute_router.router.region
   source_subnetwork_ip_ranges_to_nat = "LIST_OF_SUBNETWORKS"
