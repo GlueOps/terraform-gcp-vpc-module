@@ -8,7 +8,7 @@ resource "google_compute_network" "vpc_network" {
 
 
 resource "google_compute_route" "default" {
-  name             = "test-route"
+  name             = "internet-route"
   dest_range       = "0.0.0.0/0"
   network          = google_compute_network.vpc_network.name
   priority         = 1000
