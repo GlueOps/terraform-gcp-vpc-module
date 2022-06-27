@@ -12,7 +12,7 @@ resource "google_compute_router" "router" {
 resource "google_compute_address" "address" {
   count  = var.number_of_ips_to_manually_allocate_to_cloud_nat
   name   = "${var.workspace}-${var.region}-nat-manual-ip-${count.index}"
-  region = google_compute_subnetwork.subnet.region
+  region = google_compute_router.router.region
 }
 
 resource "google_compute_router_nat" "nat" {
