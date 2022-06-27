@@ -17,6 +17,13 @@ variable "gcp_folder_id" {
 }
 
 
+variable "number_of_ips_to_manually_allocate_to_cloud_nat" {
+  type        = int
+  default     = 0
+  description = "Number of IPs we should manually allocate for Cloud NAT"
+}
+
+
 
 variable "network_prefixes" {
   type = map(string)

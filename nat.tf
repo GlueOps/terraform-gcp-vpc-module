@@ -9,6 +9,12 @@ resource "google_compute_router" "router" {
   }
 }
 
+resource "google_compute_address" "address" {
+  count  = var.number_of_ips_to_manually_allocate_to_cloud_nat
+  name   = "${var.workspace}-${var.region}-nat-manual-ip-${count.index}"
+  region = google_compute_subnetwork.subnet.region
+}
+
 resource "google_compute_router_nat" "nat" {
   project                            = data.google_projects.env_project.projects[0].project_id
   name                               = "${var.workspace}-${var.region}-nat"
@@ -16,7 +22,8 @@ resource "google_compute_router_nat" "nat" {
   region                             = google_compute_router.router.region
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 
-  nat_ip_allocate_option = "AUTO_ONLY"
+  nat_ip_allocate_option = var.number_of_ips_to_manually_allocate_to_cloud_nat > 0 ? "MANUAL_ONLY" : "AUTO_ONLY"
+  nat_ips                = google_compute_address.address.*.self_link
 
   log_config {
     enable = true
