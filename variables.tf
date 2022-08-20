@@ -41,3 +41,9 @@ variable "network_prefixes" {
   description = "Mapping of network CIDRs to use for various GCP services"
 
 }
+
+variable "enable_google_vpc_access_connector" {
+  type        = bool
+  default     = true
+  description = "Enable Google VPC Access Connector"
+}
